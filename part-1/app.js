@@ -22,40 +22,28 @@ app.get('/square?:number', function(req, res) {
 
 app.post('/compute', function(req, res, next) {
   var total;
-  // var reqBody = {
-  //   "operator": "/",
-  //   "operands": [5,3]
-  // };
+  var operands = JSON.parse(req.body.operands);
+  var operator = req.body.operator;
 
-    console.log(req.body);
-    var operands = JSON.parse(req.body.operands);
-    var operator = req.body.operator;
 
-    //maybe use regexp to remove brackets?
-
-    console.log("1st shit", operator);
-    console.log(operands[0]);
-    console.log(operands[1]);
-
-    switch(operator) {
-      case '/':
-        total = operands[0] / operands[1]
-        break;
-      case '+':
-        total = operands[0] + operands[1]
-        break;
-      case '-':
-        total = operands[0] - operands[1]
-        break;
-      case '*':
-        total = operands[0] * operands[1]
-        break;
-      default:
-        throw 'error": "invalid operator ?. Valid operators are /, +, -, *'
-    }
-  console.log("yolo", req.body);
+  switch(operator) {
+    case '/':
+      total = operands[0] / operands[1]
+      break;
+    case '+':
+      total = operands[0] + operands[1]
+      break;
+    case '-':
+      total = operands[0] - operands[1]
+      break;
+    case '*':
+      total = operands[0] * operands[1]
+      break;
+    default:
+      throw 'error": "invalid operator ?. Valid operators are /, +, -, *'
+  }
   res.json({'total': total});
-})
+});
 
 app.listen(3000, function() {
   console.log('Server started!');
