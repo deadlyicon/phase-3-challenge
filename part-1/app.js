@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-app.get('/api/supported-operations', function(req, res) {
+app.get('/supported-operations', function(req, res) {
   var operations = {
     "/": "division",
     "+": "addition",
@@ -9,6 +9,11 @@ app.get('/api/supported-operations', function(req, res) {
     "*": "multiplication"
   }
   res.json(operations)
+});
+
+app.get('/square?:number', function(req, res) {
+  var result = {'result': req.query.number ** 2}
+  res.send(result)
 });
 
 app.listen(3000, function() {
